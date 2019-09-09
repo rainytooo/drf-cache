@@ -34,6 +34,8 @@ stages:
             architecture: 'x64'
         - script: |
             python -m pip install --upgrade pip setuptools wheel
+            sudo apt-get install redis-server
+            redis-server
             pip install tox
             pip install unittest-xml-reporting
           displayName: 'Install prerequisites'
