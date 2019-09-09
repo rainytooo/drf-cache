@@ -9,3 +9,5 @@ VERSION = __version__
 
 # Header encoding (see RFC5987)
 HTTP_HEADER_ENCODING = 'iso-8859-1'
+
+default_app_config = "drf_cache.apps.DOTConfig"
