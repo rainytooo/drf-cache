@@ -35,17 +35,17 @@ class TestCacheDecorator(TestCase):
 
     def test_hello(self):
         resp = self.client.get('/testhello/?aaa=222&page=2&hakjshdkjas=uasiuad')
-        self.assertEquals(force_text(resp.content), '"Hello World"')
+        self.assertEqual(force_text(resp.content), '"Hello World"')
 
     def test_cache_params(self):
         resp = self.client.get(
             '/testhello/test_params/?dkjha=asjdaks&params_b=alsdl&ksjdkasjd=askdjakshd&asdhghashd=asjdkajs')
-        self.assertEquals(force_text(resp.content), '"test params"')
+        self.assertEqual(force_text(resp.content), '"test params"')
 
     def test_decorator_with_pk(self):
         resp = self.client.get(
             '/testhello/23/test_with_pk/?dkjha=asjdaks&params_b=alsdl&ksjdkasjd=askdjakshd&asdhghashd=asjdkajs')
-        self.assertEquals(force_text(resp.content), '"test params"')
+        self.assertEqual(force_text(resp.content), '"test params"')
 
     def test_cache_with_pk(self):
         resp = self.client.get(
@@ -54,7 +54,7 @@ class TestCacheDecorator(TestCase):
         resp = self.client.get(
             '/testhello/23/test_cache_with_pk/?dkjha=asjdaks&params_b=alsdl&ksjdkasjd=askdjakshd&asdhghashd=asjdkajs')
         con_2 = force_text(resp.content)
-        self.assertEquals(con_1, con_2)
+        self.assertEqual(con_1, con_2)
 
     def test_cache_with_list(self):
         resp = self.client.get(
@@ -63,7 +63,7 @@ class TestCacheDecorator(TestCase):
         resp = self.client.get(
             '/testhello/test_cache_with_list/?dkjha=asjdaks&params_b=alsdl&ksjdkasjd=askdjakshd&asdhghashd=asjdkajs')
         con_2 = force_text(resp.content)
-        self.assertEquals(con_1, con_2)
+        self.assertEqual(con_1, con_2)
 
         resp = self.client.get(
             '/testhello/23/test_cache_with_pk/?dkjha=asjdaks&params_b=alsdl&ksjdkasjd=askdjakshd&asdhghashd=asjdkajs')
@@ -77,14 +77,14 @@ class TestCacheDecorator(TestCase):
         resp = self.client.get(
             '/testhello/test_cache_no_follow/?dkjha=asjdaks&params_b=alsdl&ksjdkasjd=askdjakshd&asdhghashd=asjdkajs')
         con_2 = force_text(resp.content)
-        self.assertEquals(con_1, con_2)
+        self.assertEqual(con_1, con_2)
 
     def test_cache_timeout_withseed(self):
         resp = self.client.get('/testhello/test_cache_timeout_withseed/?dkjha=asjdaks')
         con_1 = force_text(resp.content)
         resp = self.client.get('/testhello/test_cache_timeout_withseed/?dkjha=asjdaks')
         con_2 = force_text(resp.content)
-        self.assertEquals(con_1, con_2)
+        self.assertEqual(con_1, con_2)
 
         time.sleep(4)
         resp = self.client.get('/testhello/test_cache_timeout_withseed/?dkjha=asjdaks')
@@ -96,7 +96,7 @@ class TestCacheDecorator(TestCase):
         con_1 = force_text(resp.content)
         resp = self.client.get('/testhello/test_cache_with_list/?dkjha=asjdaks')
         con_2 = force_text(resp.content)
-        self.assertEquals(con_1, con_2)
+        self.assertEqual(con_1, con_2)
 
         self.client.post('/testhello/test_update_seed_version/', data={})
 
@@ -112,7 +112,7 @@ class TestCacheDecorator(TestCase):
         resp = self.client.get(
             '/testhello/23/test_cache_with_pk/?dkjha=asjdaks&params_b=alsdl&ksjdkasjd=askdjakshd&asdhghashd=asjdkajs')
         con_2 = force_text(resp.content)
-        self.assertEquals(con_1, con_2)
+        self.assertEqual(con_1, con_2)
         # 其它对象是缓存的
         resp = self.client.get(
             '/testhello/24/test_cache_with_pk/?dkjha=asjdaks&params_b=alsdl&ksjdkasjd=askdjakshd&asdhghashd=asjdkajs')
@@ -120,7 +120,7 @@ class TestCacheDecorator(TestCase):
         resp = self.client.get(
             '/testhello/24/test_cache_with_pk/?dkjha=asjdaks&params_b=alsdl&ksjdkasjd=askdjakshd&asdhghashd=asjdkajs')
         conb_2 = force_text(resp.content)
-        self.assertEquals(conb_1, conb_2)
+        self.assertEqual(conb_1, conb_2)
 
         # list是缓存的
         resp = self.client.get(
@@ -129,7 +129,7 @@ class TestCacheDecorator(TestCase):
         resp = self.client.get(
             '/testhello/test_cache_with_list/?dkjha=asjdaks&params_b=alsdl&ksjdkasjd=askdjakshd&asdhghashd=asjdkajs')
         conc_2 = force_text(resp.content)
-        self.assertEquals(conc_1, conc_2)
+        self.assertEqual(conc_1, conc_2)
 
         # 更新缓存
         self.client.post('/testhello/23/test_update_object_seed_version/', data={})
@@ -150,4 +150,4 @@ class TestCacheDecorator(TestCase):
         resp = self.client.get(
             '/testhello/24/test_cache_with_pk/?dkjha=asjdaks&params_b=alsdl&ksjdkasjd=askdjakshd&asdhghashd=asjdkajs')
         conb_3 = force_text(resp.content)
-        self.assertEquals(conb_3, conb_1)
+        self.assertEqual(conb_3, conb_1)

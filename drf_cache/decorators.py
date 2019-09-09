@@ -1,15 +1,15 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from drf_cache.cache_helper import RedisCacheVersion
-from drf_cache.cache_key import DefaultKeyGenerator
-
-
 import logging
+# from django.utils.decorators import available_attrs
+from functools import WRAPPER_ASSIGNMENTS
 from functools import wraps
 
 from django.core.cache import cache as dj_cache
-from django.utils.decorators import available_attrs
+
+from drf_cache.cache_helper import RedisCacheVersion
+from drf_cache.cache_key import DefaultKeyGenerator
 
 log = logging.getLogger("drf_cache")
 
@@ -41,7 +41,7 @@ class CacheRestApiResponse(object):
     def __call__(self, func):
         this = self
 
-        @wraps(func, assigned=available_attrs(func))
+        @wraps(func, assigned=WRAPPER_ASSIGNMENTS)
         def inner(self, request, *args, **kwargs):
             return this.process_cache_response(
                 view_instance=self,
@@ -142,7 +142,7 @@ class UpdateCacheSeedVersion(object):
     def __call__(self, func):
         this = self
 
-        @wraps(func, assigned=available_attrs(func))
+        @wraps(func, assigned=WRAPPER_ASSIGNMENTS)
         def inner(self, request, *args, **kwargs):
             return this.update_cahce_version(
                 view_instance=self,

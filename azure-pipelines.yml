@@ -1,0 +1,41 @@
+# Python Django
+# Test a Django project on multiple versions of Python.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/python
+
+trigger:
+- master
+
+
+stages:
+  - stage: TestingStage
+    displayName: Testing Project Stage  # friendly name to display in the UI
+    # dependsOn: string | [ string ]
+    # condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+    jobs:
+      - job: Unit_Test
+        # condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+        displayName: Run Unit Test
+        pool:
+          vmImage: 'ubuntu-latest'
+        strategy:
+          matrix:
+            Python35:
+              PYTHON_VERSION: '3.5'
+            Python36:
+              PYTHON_VERSION: '3.6'
+            Python37:
+              PYTHON_VERSION: '3.7'
+          maxParallel: 3
+        steps:
+        - task: UsePythonVersion@0
+          inputs:
+            versionSpec: '$(PYTHON_VERSION)'
+            architecture: 'x64'
+        - script: |
+            python -m pip install --upgrade pip setuptools wheel
+            pip install tox
+            pip install unittest-xml-reporting
+          displayName: 'Install prerequisites'
+        - script: tox
+          displayName: 'Run Tox'
