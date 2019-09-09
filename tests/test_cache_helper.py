@@ -27,17 +27,17 @@ class TestCacheVersion(TestCase):
 
     def test_seed_version_key(self):
         seed_version_key = self.cache_version.calculate_seed_version_key('resource', None, 'L')
-        self.assertEquals('seedversion_resource_L', seed_version_key)
+        self.assertEqual('seedversion_resource_L', seed_version_key)
 
         seed_version_key = self.cache_version.calculate_seed_version_key('resource', 1, 'O')
-        self.assertEquals('seedversion_resource_O_1', seed_version_key)
+        self.assertEqual('seedversion_resource_O_1', seed_version_key)
 
     def test_cache_version_key(self):
         seed_version_key = self.cache_version.calculate_cache_version_key('kahdasdk', 'resource', None, 'L')
-        self.assertEquals('cacheversion_resource_L_kahdasdk', seed_version_key)
+        self.assertEqual('cacheversion_resource_L_kahdasdk', seed_version_key)
 
         seed_version_key = self.cache_version.calculate_cache_version_key('kahdasdk', 'resource', 1, 'O')
-        self.assertEquals('cacheversion_resource_O_1_kahdasdk', seed_version_key)
+        self.assertEqual('cacheversion_resource_O_1_kahdasdk', seed_version_key)
 
     def test_cache_is_new(self):
         self.redis_conn().flushall()

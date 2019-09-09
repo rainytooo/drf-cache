@@ -46,13 +46,13 @@ class TestCacheDecorator(TestCase):
         con_1 = force_text(resp.content)
         resp = self.client.get('/testhello/2/test_cache_with_pk/?dkjha=asjdaks&params_b=alsdl&ksjdkasjd=askdjakshd&asdhghashd=asjdkajs')
         con_2 = force_text(resp.content)
-        self.assertEquals(con_1, con_2)
+        self.assertEqual(con_1, con_2)
 
         resp = self.client.get('/testhello/test_cache_with_list/?dkjha=asjdaks&params_b=alsdl&ksjdkasjd=askdjakshd&asdhghashd=asjdkajs')
         conc_1 = force_text(resp.content)
         resp = self.client.get('/testhello/test_cache_with_list/?dkjha=asjdaks&params_b=alsdl&ksjdkasjd=askdjakshd&asdhghashd=asjdkajs')
         conc_2 = force_text(resp.content)
-        self.assertEquals(conc_1, conc_2)
+        self.assertEqual(conc_1, conc_2)
 
         # 更新list缓存版本
         update_seed_version(resource_name, None, 'L')
@@ -65,7 +65,7 @@ class TestCacheDecorator(TestCase):
         # 单个对象不变
         resp = self.client.get('/testhello/2/test_cache_with_pk/?dkjha=asjdaks&params_b=alsdl&ksjdkasjd=askdjakshd&asdhghashd=asjdkajs')
         con_3 = force_text(resp.content)
-        self.assertEquals(con_3, con_1)
+        self.assertEqual(con_3, con_1)
 
         # 更新了单个对象
         update_seed_version(resource_name, '2', 'O')
@@ -85,7 +85,7 @@ class TestCacheDecorator(TestCase):
         # 原有对象不变
         resp = self.client.get('/testhello/2/test_cache_with_pk/?dkjha=asjdaks&params_b=alsdl&ksjdkasjd=askdjakshd&asdhghashd=asjdkajs')
         con_5 = force_text(resp.content)
-        self.assertEquals(con_5, con_4)
+        self.assertEqual(con_5, con_4)
 
         # list被更新了
         resp = self.client.get('/testhello/test_cache_with_list/?dkjha=asjdaks&params_b=alsdl&ksjdkasjd=askdjakshd&asdhghashd=asjdkajs')

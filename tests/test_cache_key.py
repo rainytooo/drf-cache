@@ -33,4 +33,4 @@ class TestKeyGenerator(TestCase):
             'FORMAT_BUILDER': 'json',
         }
         result = self.key_g.hash_key_data(key_data)
-        self.assertEquals('896ac46647130e43b842d694b94d9b3f0e6acf1d540ed8e4c31e3278e499cea0', result)
+        self.assertEqual('896ac46647130e43b842d694b94d9b3f0e6acf1d540ed8e4c31e3278e499cea0', result)
