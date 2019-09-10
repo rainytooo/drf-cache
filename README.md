@@ -22,6 +22,7 @@ Django Rest Framework Caching Tools
 
 
 * 2019-09-10
+    - upload to pypi by azure
     - format the code
     - use tox and flake8 to build and test
 * 2019-09-09
