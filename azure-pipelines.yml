@@ -49,7 +49,7 @@ stages:
         - task: PublishCodeCoverageResults@1
           inputs:
             #codeCoverageTool: 'JaCoCo' # Options: cobertura, jaCoCo
-            summaryFileLocation: $(System.DefaultWorkingDirectory)/**/coverage.xml
+            summaryFileLocation: $(Build.SourcesDirectory)/coverage.xml
 
   - stage: BuildingStage
     displayName: Build And Publish Stage
