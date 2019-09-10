@@ -130,6 +130,9 @@ LOGGING = {
     }
 }
 
+
+TEST_RUNNER = "xmlrunner.extra.djangotestrunner.XMLTestRunner"
+
 REDIS_SERVER_HOST = "127.0.0.1"
 
 REDIS_SERVER_PORT = 6379
