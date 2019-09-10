@@ -6,6 +6,8 @@
 trigger:
 - master
 
+variables:
+  - group: default-variables
 
 stages:
   - stage: TestingStage
@@ -20,10 +22,10 @@ stages:
           vmImage: 'ubuntu-latest'
         strategy:
           matrix:
-            Python35:
-              PYTHON_VERSION: '3.5'
-            Python36:
-              PYTHON_VERSION: '3.6'
+#            Python35:
+#              PYTHON_VERSION: '3.5'
+#            Python36:
+#              PYTHON_VERSION: '3.6'
             Python37:
               PYTHON_VERSION: '3.7'
           maxParallel: 3
@@ -36,8 +38,8 @@ stages:
             python -m pip install --upgrade pip setuptools wheel
             sudo apt-get install redis-server
             sudo service redis restart
-            pip install tox
-            pip install unittest-xml-reporting
+            pip install tox codecov
+#            pip install unittest-xml-reporting
           displayName: 'Install prerequisites'
         - script: tox
           displayName: 'Run Tox'
@@ -51,6 +53,9 @@ stages:
             codeCoverageTool: Cobertura
             summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage.xml'
             reportDirectory: '$(System.DefaultWorkingDirectory)/**/htmlcov'
+        - script: |
+            codecov --token=$(codecov-drfcache-token)
+          displayName: 'Upload Coverage Report to codecov'
 
   - stage: BuildingStage
     displayName: Build And Publish Stage

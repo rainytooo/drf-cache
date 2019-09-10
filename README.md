@@ -1,3 +1,5 @@
+[![Requirements Status](https://requires.io/github/rainytooo/drf-cache/requirements.svg?branch=master)](https://requires.io/github/rainytooo/drf-cache/requirements/?branch=master)
+
 # drf-cache
 
 Django Rest Framework Caching Tools
