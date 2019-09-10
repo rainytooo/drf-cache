@@ -46,6 +46,10 @@ stages:
           inputs:
             testResultsFiles: '**/TEST-*.xml'
             testRunTitle: 'Publish test results for Python $(python.version)'
+        - task: PublishCodeCoverageResults@1
+          inputs:
+            #codeCoverageTool: 'JaCoCo' # Options: cobertura, jaCoCo
+            summaryFileLocation: $(System.DefaultWorkingDirectory)/**/coverage.xml
 
   - stage: BuildingStage
     displayName: Build And Publish Stage
