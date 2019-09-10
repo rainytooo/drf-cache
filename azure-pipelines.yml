@@ -43,41 +43,41 @@ stages:
           displayName: 'Run Tox'
 
   - stage: BuildingStage
-      displayName: Build And Publish Stage
-      jobs:
-        - job: Package_Project
-          condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-          displayName: Package The Project
-          pool:
-            vmImage: 'ubuntu-latest'
-          strategy:
-            matrix:
-              Python37:
-                PYTHON_VERSION: '3.7'
-            maxParallel: 3
-          steps:
-            - task: UsePythonVersion@0
+    displayName: Build And Publish Stage
+    jobs:
+      - job: Package_Project
+        condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+        displayName: Package The Project
+        pool:
+          vmImage: 'ubuntu-latest'
+        strategy:
+          matrix:
+            Python37:
+              PYTHON_VERSION: '3.7'
+          maxParallel: 3
+        steps:
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: '$(PYTHON_VERSION)'
+              architecture: 'x64'
+          - script: |
+              python -m pip install --upgrade pip setuptools wheel
+            displayName: 'Install prerequisites'
+          - task: DownloadSecureFile@1
+              name: downloadPypircFile
+              displayName: 'Download Pypirc File'
               inputs:
-                versionSpec: '$(PYTHON_VERSION)'
-                architecture: 'x64'
-            - script: |
-                python -m pip install --upgrade pip setuptools wheel
-              displayName: 'Install prerequisites'
-            - task: DownloadSecureFile@1
-                name: downloadPypircFile
-                displayName: 'Download Pypirc File'
-                inputs:
-                  secureFile: 'pypirc'
-            - script: |
-                sudo cp -rv $(downloadPypircFile.secureFilePath) ~/.pypirc
-                ls -alsh ~/.pypirc
-                name: InitPypircFile
-                displayName: 'Init Pypirc File for Build'
-            - script: |
-                python setup.py sdist bdist_wheel
-              name: Packaging
-              displayName: 'Packaging'
-            - script: |
-                twine upload dist/*
-              name: Uploading
-              displayName: 'Uploading'
+                secureFile: 'pypirc'
+          - script: |
+              sudo cp -rv $(downloadPypircFile.secureFilePath) ~/.pypirc
+              ls -alsh ~/.pypirc
+              name: InitPypircFile
+              displayName: 'Init Pypirc File for Build'
+          - script: |
+              python setup.py sdist bdist_wheel
+            name: Packaging
+            displayName: 'Packaging'
+          - script: |
+              twine upload dist/*
+            name: Uploading
+            displayName: 'Uploading'
