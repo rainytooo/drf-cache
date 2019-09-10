@@ -22,6 +22,7 @@ Django Rest Framework Caching Tools
 
 
 * 2019-09-10
+    - publish test results and coverage results to the Azure in pipeline
     - upload to pypi by azure
     - format the code
     - use tox and flake8 to build and test
