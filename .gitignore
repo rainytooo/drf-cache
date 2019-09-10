@@ -51,3 +51,6 @@ _build
 
 # VSCode stuff
 .vscode
+
+# junit report
+report
