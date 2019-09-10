@@ -64,15 +64,15 @@ stages:
               python -m pip install --upgrade pip setuptools wheel
             displayName: 'Install prerequisites'
           - task: DownloadSecureFile@1
-              name: downloadPypircFile
-              displayName: 'Download Pypirc File'
-              inputs:
-                secureFile: 'pypirc'
+            name: downloadPypircFile
+            displayName: 'Download Pypirc File'
+            inputs:
+              secureFile: 'pypirc'
           - script: |
               sudo cp -rv $(downloadPypircFile.secureFilePath) ~/.pypirc
               ls -alsh ~/.pypirc
-              name: InitPypircFile
-              displayName: 'Init Pypirc File for Build'
+            name: InitPypircFile
+            displayName: 'Init Pypirc File for Build'
           - script: |
               python setup.py sdist bdist_wheel
             name: Packaging
