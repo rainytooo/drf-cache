@@ -1,5 +1,10 @@
 [![Requirements Status](https://requires.io/github/rainytooo/drf-cache/requirements.svg?branch=master)](https://requires.io/github/rainytooo/drf-cache/requirements/?branch=master)
 
+[![codecov](https://codecov.io/gh/rainytooo/drf-cache/branch/master/graph/badge.svg)](https://codecov.io/gh/rainytooo/drf-cache)
+
+[![Documentation Status](https://readthedocs.org/projects/drf-cache/badge/?version=latest)](https://drf-cache.readthedocs.io/en/latest/?badge=latest)
+     
+
 # drf-cache
 
 Django Rest Framework Caching Tools
