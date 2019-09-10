@@ -1,5 +1,5 @@
 __title__ = "Django REST framework Caching Tools"
-__version__ = "1.0.2"
+__version__ = "1.0.3"
 __author__ = "Vincent Wantchalk"
 __license__ = "MIT"
 __copyright__ = "Copyright 2011-2019 xsudo.com"

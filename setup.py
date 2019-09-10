@@ -49,7 +49,7 @@ setup(
         # Development Status:: 5 - Production / Stable
         # Development Status:: 6 - Mature
         # Development Status:: 7 - Inactive
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 4 - Beta",
         "Environment :: Web Environment",
         "Framework :: Django",
         "Framework :: Django :: 2.0",
