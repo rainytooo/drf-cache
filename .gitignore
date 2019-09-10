@@ -52,5 +52,6 @@ _build
 # VSCode stuff
 .vscode
 
-# junit report
+# junit report and pytest coverage report
 report
+htmlcov

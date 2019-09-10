@@ -7,7 +7,7 @@ Django Rest Framework Caching Tools
 * How to use
 * Requirements
 * Develop Log
-* Contact
+
 
 
 ## How to use
@@ -29,4 +29,3 @@ Django Rest Framework Caching Tools
     - Use the Azure Pipeline to building and assemble
     
     
-## Contact
