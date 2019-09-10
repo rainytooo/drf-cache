@@ -47,3 +47,6 @@ _build
 
 # Sqlite database files
 *.sqlite
+
+# VSCode stuff
+.vscode

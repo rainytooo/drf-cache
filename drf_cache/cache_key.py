@@ -1,11 +1,12 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from drf_cache.key_builder import QueryParamKeyBuilder, UniqueMethodIdKeyBuilder, FormatKeyBuilder, \
-    UniqueResourceIdKeyBuilder
-
-
 import hashlib
 import json
+
+from drf_cache.key_builder import (
+    FormatKeyBuilder, QueryParamKeyBuilder,
+    UniqueMethodIdKeyBuilder, UniqueResourceIdKeyBuilder
+)
 
 
 class KeyGenerator(object):
@@ -15,7 +16,7 @@ class KeyGenerator(object):
 
     def __init__(self, params=None):
         """
-        params参数的形式为{'构造器名字': 参数}
+        params参数的形式为{"构造器名字": 参数}
         """
         if params:
             self.params = params
@@ -27,11 +28,11 @@ class KeyGenerator(object):
         获取key
         """
         _kwargs = {
-            'view_instance': view_instance,
-            'view_method': view_method,
-            'request': request,
-            'args': args,
-            'kwargs': kwargs
+            "view_instance": view_instance,
+            "view_method": view_method,
+            "request": request,
+            "args": args,
+            "kwargs": kwargs
         }
         key_dict = {}
         for builder in self.builders:
@@ -61,7 +62,7 @@ class KeyGenerator(object):
         """
         给生成的key排序,返回排序后的json的字符串
         """
-        to_hash = json.dumps(key_dict, sort_keys=True).encode('utf-8')
+        to_hash = json.dumps(key_dict, sort_keys=True).encode("utf-8")
         return hashlib.sha256(to_hash).hexdigest()
 
 

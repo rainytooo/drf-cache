@@ -1,6 +1,5 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from functools import wraps
 
 
 def singleton(cls, *args, **kw):
@@ -12,4 +11,3 @@ def singleton(cls, *args, **kw):
         return instances[cls]
 
     return _singleton
-

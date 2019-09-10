@@ -1,17 +1,15 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-
-
 from django.utils.encoding import force_text
 
 
 def prepare_header_name(name):
     """
     由于django将request里的header值做了转化,所以要有一个格式标准
-        >> prepare_header_name('Accept-Language')
+        >> prepare_header_name("Accept-Language")
         http_accept_language
     """
-    return 'http_{0}'.format(name.strip().replace('-', '_')).upper()
+    return "http_{0}".format(name.strip().replace("-", "_")).upper()
 
 
 class BaseKeyBuilder(object):
@@ -47,7 +45,7 @@ class DictKeyBuilder(BaseKeyBuilder):
                 args=args,
                 kwargs=kwargs)
 
-            if params == '*':
+            if params == "*":
                 # 所有的都要运算
                 params = source_dict.keys()
 
@@ -78,12 +76,12 @@ class DictKeyBuilder(BaseKeyBuilder):
 class FormatKeyBuilder(BaseKeyBuilder):
     """
     Return example for json:
-        u'json'
+        u"json"
 
     Return example for html:
-        u'html'
+        u"html"
     """
-    name = 'FORMAT_BUILDER'
+    name = "FORMAT_BUILDER"
 
     def build_key(self, params, view_instance, view_method, request, args, kwargs):
         return force_text(request.accepted_renderer.format)
@@ -93,7 +91,7 @@ class QueryParamKeyBuilder(DictKeyBuilder):
     """
     GET查询参数的builder
     """
-    name = 'QUERYPARAM_BUILDER'
+    name = "QUERYPARAM_BUILDER"
 
     def get_source_dict(self, params, view_instance, view_method, request, args, kwargs):
         return request.GET
@@ -102,10 +100,10 @@ class QueryParamKeyBuilder(DictKeyBuilder):
 class HeadersKeyBuilder(DictKeyBuilder):
     """
     Return example:
-        {'accept-language': u'ru', 'x-geobase-id': '123'}
+        {"accept-language": u"ru", "x-geobase-id": "123"}
 
     """
-    name = 'HEADER_BUILDER'
+    name = "HEADER_BUILDER"
 
     def get_source_dict(self, params, view_instance, view_method, request, args, kwargs):
         return request.META
@@ -120,20 +118,20 @@ class HeadersKeyBuilder(DictKeyBuilder):
 class RequestMetaKeyBuilder(DictKeyBuilder):
     """
     Return example:
-        {'REMOTE_ADDR': u'127.0.0.2', 'REMOTE_HOST': u'yandex.ru'}
+        {"REMOTE_ADDR": u"127.0.0.2", "REMOTE_HOST": u"yandex.ru"}
 
     """
-    name = 'REQUEST_META_BUILDER'
+    name = "REQUEST_META_BUILDER"
 
     def get_source_dict(self, params, view_instance, view_method, request, args, kwargs):
         return request.META
 
 
 class UniqueMethodIdKeyBuilder(BaseKeyBuilder):
-    name = 'UNIQUE_METHOD_BUILDER'
+    name = "UNIQUE_METHOD_BUILDER"
 
     def build_key(self, params, view_instance, view_method, request, args, kwargs):
-        return u'.'.join([
+        return u".".join([
             view_instance.__module__,
             view_instance.__class__.__name__,
             view_method.__name__
@@ -141,19 +139,19 @@ class UniqueMethodIdKeyBuilder(BaseKeyBuilder):
 
 
 class UniqueResourceIdKeyBuilder(BaseKeyBuilder):
-    name = 'UNIQUE_RESOURCE_BUILDER'
+    name = "UNIQUE_RESOURCE_BUILDER"
 
     def build_key(self, params, view_instance, view_method, request, args, kwargs):
-        if 'pk' in kwargs:
-            return kwargs['pk']
-        return 'pk'
+        if "pk" in kwargs:
+            return kwargs["pk"]
+        return "pk"
 
 
 class UniqueViewIdKeyBuilder(BaseKeyBuilder):
-    name = 'UNIQUE_VIEW_BUILDER'
+    name = "UNIQUE_VIEW_BUILDER"
 
     def build_key(self, params, view_instance, view_method, request, args, kwargs):
-        return u'.'.join([
+        return u".".join([
             view_instance.__module__,
             view_instance.__class__.__name__
         ])
@@ -162,22 +160,22 @@ class UniqueViewIdKeyBuilder(BaseKeyBuilder):
 class PaginationKeyBuilder(QueryParamKeyBuilder):
     """
     Return example:
-        {'page_size': 100, 'page': '1'}
+        {"page_size": 100, "page": "1"}
 
     """
-    name = 'PAGINATION_BUILDER'
+    name = "PAGINATION_BUILDER"
 
     def build_key(self, **kwargs):
-        kwargs['params'] = []
-        if hasattr(kwargs['view_instance'], 'page_kwarg'):
-            kwargs['params'].append(kwargs['view_instance'].page_kwarg)
-        if hasattr(kwargs['view_instance'], 'paginate_by_param'):
-            kwargs['params'].append(kwargs['view_instance'].paginate_by_param)
+        kwargs["params"] = []
+        if hasattr(kwargs["view_instance"], "page_kwarg"):
+            kwargs["params"].append(kwargs["view_instance"].page_kwarg)
+        if hasattr(kwargs["view_instance"], "paginate_by_param"):
+            kwargs["params"].append(kwargs["view_instance"].paginate_by_param)
         return super(PaginationKeyBuilder, self).build_key(**kwargs)
 
 
 class KwargsKeyBuilder(DictKeyBuilder):
-    name = 'KWARGS_BUILDER'
+    name = "KWARGS_BUILDER"
 
     def get_source_dict(self, params, view_instance, view_method, request, args, kwargs):
         return kwargs
@@ -186,18 +184,18 @@ class KwargsKeyBuilder(DictKeyBuilder):
 class UserKeyBuilder(BaseKeyBuilder):
     """
     Return example for anonymous:
-        u'anonymous'
+        u"anonymous"
 
     Return example for authenticated (value is user id):
-        u'10'
+        u"10"
     """
-    name = 'USER_BUILDER'
+    name = "USER_BUILDER"
 
     def build_key(self, params, view_instance, view_method, request, args, kwargs):
-        if hasattr(request, 'user') and request.user and request.user.is_authenticated():
+        if hasattr(request, "user") and request.user and request.user.is_authenticated():
             return force_text(self._get_id_from_user(request.user))
         else:
-            return u'anonymous'
+            return u"anonymous"
 
     def _get_id_from_user(self, user):
         return user.id

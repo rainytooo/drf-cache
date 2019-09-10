@@ -20,6 +20,10 @@ Django Rest Framework Caching Tools
 
 ## Develop Log
 
+
+* 2019-09-10
+    - format the code
+    - use tox and flake8 to build and test
 * 2019-09-09
     - Use the Azure Pipeline to building and assemble
     
