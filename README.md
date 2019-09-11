@@ -19,8 +19,10 @@ Django Rest Framework Caching Tools
 
 * How to use
 * Requirements
+* Install
+* Documentation
 * Develop Log
-
+* License
 
 
 ## How to use
@@ -43,3 +45,6 @@ Django Rest Framework Caching Tools
     - Use the Azure Pipeline to building and assemble
     
     
+## License
+
+Drf-Cache is released under the terms of the MIT license. Full details in LICENSE file.
