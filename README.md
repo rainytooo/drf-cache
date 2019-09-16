@@ -13,13 +13,12 @@
 
 # drf-cache
 
-Django Rest Framework Caching Tools
+A Simple Django Rest Framework Caching Tools
 
 ## Content
 
-* How to use
 * Requirements
-* Install
+* Quick Start
 * Documentation
 * Develop Log
 * License
@@ -32,6 +31,52 @@ Django Rest Framework Caching Tools
 * `django >= 2.0`
 * `djangorestframework >= 3.9.0`
 * `redis`
+
+## Quick Start
+
+### Installation
+
+Install with pip
+
+```
+pip install drf-cache
+```
+
+### Add cache config to your django settings file
+
+```
+REDIS_SERVER_HOST = "127.0.0.1"
+REDIS_SERVER_PORT = 6379
+```
+
+### Add cache decorator for your method
+
+```
+class HelloView(viewsets.GenericViewSet):
+    renderer_classes = [PlainTextRenderer]
+
+    @cache_rest_api_response()
+    def list(self, request, *args, **kwargs):
+        return Response("Hello World")
+```
+
+The default cache policy will expire after 600 seconds
+
+### How to update cache
+
+use the `update_seed_version` decorator
+
+```
+    @action(detail=False, methods=["get"])
+    @cache_rest_api_response(resource_name="testresource", resource_type="L")
+    def test_cache_with_list(self, request):
+        rcode = get_random_code()
+        return Response(rcode)
+```
+
+## Documentation
+
+The [full documentation](https://drf-cache.readthedocs.io/en/latest/) is on Read the Docs
 
 ## Develop Log
 
