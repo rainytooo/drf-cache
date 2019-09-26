@@ -1,9 +1,11 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+from django.utils.decorators import method_decorator
 from rest_framework import renderers, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
+from django_drf_cache.decorators import drf_cache
 from drf_cache.cache_key import DefaultKeyGenerator
 from drf_cache.decorators import cache_rest_api_response, update_seed_version
 from drf_cache.utils import get_random_code
@@ -75,3 +77,8 @@ class HelloView(viewsets.GenericViewSet):
     def test_update_object_seed_version(self, request, pk=None):
         rcode = get_random_code()
         return Response(rcode, status=status.HTTP_201_CREATED)
+
+    @action(detail=False, methods=["get"])
+    @method_decorator(drf_cache(20))
+    def new_drf_cache(self, request):
+        return Response("test params")

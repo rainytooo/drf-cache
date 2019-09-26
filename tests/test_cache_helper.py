@@ -6,7 +6,7 @@ from unittest import TestCase
 
 from django.utils import timezone
 
-from drf_cache.cache_helper import RedisCacheVersion, CacheVersion
+from drf_cache.cache_helper import CacheVersion, RedisCacheVersion
 from drf_cache.redis_connection import RedisConn
 
 
@@ -23,7 +23,9 @@ class TestCacheVersion(TestCase):
     def test_not_implements_cache_version(self):
         not_implements = CacheVersion()
         with self.assertRaises(NotImplementedError) as sec:
+            print(sec.msg)
             seed_version_key = not_implements.cache_is_new("board", "resource", None, "L")
+            print(seed_version_key)
 
     def test_seed_version_key(self):
         seed_version_key = self.cache_version.calculate_seed_version_key("resource", None, "L")

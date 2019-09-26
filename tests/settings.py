@@ -127,11 +127,13 @@ LOGGING = {
             "level": "DEBUG",
             "propagate": True,
         },
+        "django_drf_cache": {
+            "handlers": ["null"],
+            "level": "DEBUG",
+            "propagate": True,
+        },
     }
 }
-
-
-TEST_RUNNER = "xmlrunner.extra.djangotestrunner.XMLTestRunner"
 
 REDIS_SERVER_HOST = "127.0.0.1"
 
